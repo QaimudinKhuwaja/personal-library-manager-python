@@ -19,19 +19,19 @@ def start_gui(book_manager):
     year_entry = Entry(root)
     genre_entry = Entry(root)
 
-    table = ttk.Treeview(root, columns=("Book No","Title", "Author", "Year", "Genre", "Read"), show="headings")
+    table = ttk.Treeview(root, columns=("Book No","Title", "Author", "Year", "Genre", "Status"), show="headings")
     table.column("Book No", width=80)
     table.column("Title", width=100)
     table.column("Author", width=100)   
     table.column("Year", width=100)
     table.column("Genre", width=100)
-    table.column("Read", width=100)
+    table.column("Status", width=100)
     table.heading("Book No", text="Book No")
     table.heading("Title", text="Title")
     table.heading("Author", text="Author")
     table.heading("Year", text="Year")
     table.heading("Genre", text="Genre")
-    table.heading("Read", text="Read")
+    table.heading("Status", text="Status")
 
 
     table.grid(row=2, column=2, rowspan=6, padx=10, pady=10)
@@ -82,6 +82,10 @@ def start_gui(book_manager):
         else:
             return messagebox.showerror("Error", "No book found.")
         
+    def reading_progress():
+        total_books, completion_rate = book_manager.show_reading_progress()
+        messagebox.showinfo("Reading Progress", f"Total Books: {total_books}\nReading Progress: {completion_rate}")
+        
     add_button = Button(root, text="Add Book", command=add_book)
     add_button.grid(row=5, column=1, padx=10, pady=10)
 
@@ -93,4 +97,9 @@ def start_gui(book_manager):
 
     search_button = Button(root, text="Search", command=search_books)
     search_button.grid(row=1, column=3, padx=10, pady=10)
+
+    reading_progress_button = Button(root, text="Reading Progress", padx=10, pady=10, command=reading_progress)
+    reading_progress_button.grid(row=6, column=0, padx=10, pady=10)
     root.mainloop()
+
+    

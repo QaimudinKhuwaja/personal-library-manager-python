@@ -26,5 +26,12 @@
         "year": "2015",
         "genre": "Programming",
         "read": false
+    },
+    {
+        "title": "PhP",
+        "author": "Chip Weems",
+        "year": "1998",
+        "genre": "Markup",
+        "read": true
     }
 ]

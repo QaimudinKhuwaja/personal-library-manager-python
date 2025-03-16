@@ -109,9 +109,7 @@ class BookCollection:
         completion_rate = (
             (completed_books / total_books * 100) if total_books > 0 else 0
         )
-        print(f"Total books in collection: {total_books}")
-        print(f"Reading progress: {completion_rate:.2f}%\n")
-
+        return total_books, completion_rate
 
 if __name__ == "__main__":
     book_manager = BookCollection()
