@@ -4,7 +4,7 @@ from tkinter import ttk
 
 def start_gui(book_manager):
     root = Tk()
-    root.minsize(1000, 1000)
+    root.geometry("1000x600")
     root.title("Personal Library Manager")
 
     title_label = Label(root, text="Book Title")
@@ -34,7 +34,7 @@ def start_gui(book_manager):
     table.heading("Read", text="Read")
 
 
-    table.grid(row=1, column=2, rowspan=6, padx=10, pady=10)
+    table.grid(row=2, column=2, rowspan=6, padx=10, pady=10)
     title_label.grid(row=0, column=0, padx=10, pady=10)
     author_label.grid(row=1, column=0, padx=10, pady=10)
     year_label.grid(row=2, column=0, padx=10, pady=10)
@@ -45,6 +45,8 @@ def start_gui(book_manager):
     author_entry.grid(row=1, column=1, padx=10, pady=10)
     year_entry.grid(row=2, column=1, padx=10, pady=10)
     genre_entry.grid(row=3, column=1, padx=10, pady=10)
+    search_enrty = Entry(root)
+    search_enrty.grid(row=1, column=2, padx=10, pady=10)
 
     def add_book():
        book_manager.create_new_book(
@@ -67,8 +69,19 @@ def start_gui(book_manager):
         books = book_manager.show_all_books()
         for book in books:
             table.insert("", "end", values=(book))
+
+    def search_books():
+        if search_enrty.get() == '':
+            return messagebox.showerror("Error", "Please Enter Book or Author name.")
+        searched_books = book_manager.find_book(search_enrty.get())
+        if searched_books:
+            for i in table.get_children():
+                table.delete(i)
+            for book in searched_books:
+                table.insert("", "end", values=(book))
+        else:
+            return messagebox.showerror("Error", "No book found.")
         
-    
     add_button = Button(root, text="Add Book", command=add_book)
     add_button.grid(row=5, column=1, padx=10, pady=10)
 
@@ -77,4 +90,7 @@ def start_gui(book_manager):
 
     view_button = Button(root, text="View Books", command=view_books)
     view_button.grid(row=6, column=1, padx=10, pady=10)
+
+    search_button = Button(root, text="Search", command=search_books)
+    search_button.grid(row=1, column=3, padx=10, pady=10)
     root.mainloop()

@@ -25,6 +25,9 @@ class BookCollection:
 
     def create_new_book(self, title, author, year, genre, read):
         """Add a new book to the collection by gathering information from the user."""
+        from tkinter import messagebox
+        if title == "" or author == "" or year == "" or genre == "":
+            return messagebox.showerror("Error", "Please fill all the fields.")
         new_book = {
             "title": title,
             "author": author,
@@ -35,12 +38,10 @@ class BookCollection:
 
         self.book_list.append(new_book)
         self.save_to_file()
-        from tkinter import messagebox
         return messagebox.showinfo("Book Added", "Book added successfully!")
 
-    def delete_book(self, title):
+    def delete_book(self, book_title):
         """Remove a book from the collection using its title."""
-        book_title = title
 
         for book in self.book_list:
             if book["title"].lower() == book_title.lower():
@@ -50,26 +51,23 @@ class BookCollection:
                 return True
         return False
 
-    def find_book(self):
+    def find_book(self, search_text):
         """Search for books in the collection by title or author name."""
-        search_type = input("Search by:\n1. Title\n2. Author\nEnter your choice: ")
-        search_text = input("Enter search term: ").lower()
+        # search_type = input("Search by:\n1. Title\n2. Author\nEnter your choice: ")
+        # search_text = input("Enter search term: ").lower()
         found_books = [
             book
             for book in self.book_list
-            if search_text in book["title"].lower()
-            or search_text in book["author"].lower()
+            if search_text.lower() in book["title"].lower()
+            or search_text.lower() in book["author"].lower()
         ]
 
-        if found_books:
-            print("Matching Books:")
-            for index, book in enumerate(found_books, 1):
-                reading_status = "Read" if book["read"] else "Unread"
-                print(
-                    f"{index}. {book['title']} by {book['author']} ({book['year']}) - {book['genre']} - {reading_status}"
-                )
-        else:
-            print("No matching books found.\n")
+        book_list = []
+        for index, book in enumerate(found_books, 1):
+            reading_status = "Read" if book["read"] else "Unread"
+            book_list.append([index, book['title'], book['author'], book['year'], book['genre'], reading_status])
+        return book_list
+    
 
     def update_book(self):
         """Modify the details of an existing book in the collection."""
@@ -98,17 +96,10 @@ class BookCollection:
             print("Your collection is empty.\n")
             return
 
-        # print("Your Book Collection:")
         book_list = []
         for index, book in enumerate(self.book_list, 1):
             reading_status = "Read" if book["read"] else "Unread"
             book_list.append([index, book['title'], book['author'], book['year'], book['genre'], reading_status])
-        # for index, book in enumerate(self.book_list, 1):
-            # reading_status = "Read" if book["read"] else "Unread"
-            # print(
-                # f"{index}. {book['title']} by {book['author']} ({book['year']}) - {book['genre']} - {reading_status}"
-            # )
-        # print()
         return book_list
 
     def show_reading_progress(self):
