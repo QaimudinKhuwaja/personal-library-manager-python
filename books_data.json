@@ -1,9 +1,37 @@
 [
     {
-        "title": "Listen",
-        "author": "Faraz",
-        "year": "2025",
-        "genre": "written",
+        "title": "Java",
+        "author": "Nell Dale",
+        "year": "2010",
+        "genre": "Computer",
+        "read": false
+    },
+    {
+        "title": "Python",
+        "author": "Nell Dale",
+        "year": "2010",
+        "genre": "Computer",
+        "read": true
+    },
+    {
+        "title": "C++",
+        "author": "Bjarne",
+        "year": "2000",
+        "genre": "Programming",
+        "read": true
+    },
+    {
+        "title": "Rust",
+        "author": "William",
+        "year": "2015",
+        "genre": "Programming",
+        "read": false
+    },
+    {
+        "title": "PhP",
+        "author": "Chip Weems",
+        "year": "1998",
+        "genre": "Markup",
         "read": true
     }
 ]
